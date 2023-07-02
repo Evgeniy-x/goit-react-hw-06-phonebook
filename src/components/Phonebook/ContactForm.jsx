@@ -1,16 +1,31 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import css from './Phonebook.module.css';
 
-function ContactForm({ onSubmit }) {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
+
+const ContactForm = () => {
+  // const [name, setName] = useState('');
+  // const [number, setNumber] = useState('');
+
+  const contactsStore = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
 
   function handeleSubmit(e) {
     e.preventDefault();
+    const form = e.currentTarget;
 
-    onSubmit(name, number);
-    setName('');
-    setNumber('');
+    if (
+      contactsStore.filter(elem => elem.name === form.elements.name.value)
+        .length
+    ) {
+      alert('Вже є');
+      return;
+    }
+
+    dispatch(addContact(form.elements.name.value, form.elements.number.value));
+    // onSubmit(name, number);
+    form.reset();
   }
 
   return (
@@ -18,10 +33,11 @@ function ContactForm({ onSubmit }) {
       <label>
         Name <br />
         <input
-          onChange={e => setName(e.currentTarget.value)}
-          value={name}
+          // onChange={e => setName(e.currentTarget.value)}
+          // value={name}
           type="text"
           name="name"
+          placeholder="Enter name..."
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
@@ -32,10 +48,11 @@ function ContactForm({ onSubmit }) {
         {' '}
         Number <br />
         <input
-          onChange={e => setNumber(e.currentTarget.value)}
-          value={number}
+          // onChange={e => setNumber(e.currentTarget.value)}
+          // value={number}
           type="tel"
           name="number"
+          placeholder="Enter number..."
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
@@ -45,6 +62,6 @@ function ContactForm({ onSubmit }) {
       <button type="submit">Add contact</button>
     </form>
   );
-}
+};
 
 export default ContactForm;

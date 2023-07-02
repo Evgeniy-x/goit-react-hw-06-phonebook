@@ -1,15 +1,19 @@
 import css from './Phonebook.module.css';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/contactsSlice';
 
-const ContactList = ({ contacts, onDeleteContact }) => {
+const ContactList = () => {
+  const contactsStore = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
+
   return (
     <div>
       <ul>
-        {contacts.map(({ id, name, number }) => (
+        {contactsStore.map(({ id, name, number }) => (
           <li key={id}>
             {name}: <span>{number}</span>
             <button
-              onClick={() => onDeleteContact(id)}
+              onClick={() => dispatch(deleteContact(id))}
               className={css.delete}
               type="button"
             >
@@ -23,8 +27,3 @@ const ContactList = ({ contacts, onDeleteContact }) => {
 };
 
 export default ContactList;
-
-ContactList.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
-};
