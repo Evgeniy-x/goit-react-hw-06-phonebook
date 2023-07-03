@@ -4,12 +4,17 @@ import { deleteContact } from '../../redux/contactsSlice';
 
 const ContactList = () => {
   const contactsStore = useSelector(state => state.contacts);
+  const filterStore = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
-  return (
-    <div>
+  const filteredContacts = contactsStore.filter(contact =>
+    contact.name?.toLowerCase().includes(filterStore.toLowerCase())
+  );
+
+  return filteredContacts.length > 0 ? (
+    filteredContacts.length > 0 ? (
       <ul>
-        {contactsStore.map(({ id, name, number }) => (
+        {filteredContacts.map(({ id, name, number }) => (
           <li key={id}>
             {name}: <span>{number}</span>
             <button
@@ -22,7 +27,13 @@ const ContactList = () => {
           </li>
         ))}
       </ul>
-    </div>
+    ) : (
+      <>No matches</>
+    )
+  ) : (
+    <>
+      <p>Add some contacts...</p>
+    </>
   );
 };
 

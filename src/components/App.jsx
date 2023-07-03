@@ -1,8 +1,3 @@
-// import { useState, useEffect } from 'react';
-// import { nanoid } from 'nanoid';
-
-import { useSelector } from 'react-redux';
-
 import ContactForm from './Phonebook/ContactForm.jsx';
 import ContactList from './Phonebook/ContactList.jsx';
 import Filtre from './Phonebook/Filter.jsx';
@@ -10,9 +5,6 @@ import Filtre from './Phonebook/Filter.jsx';
 export const App = () => {
   // const [contacts, setContacts] = useState([]);
   // const [filter, setFilter] = useState('');
-
-  const contactsStore = useSelector(state => state.contacts);
-  console.log(contactsStore);
 
   // function addContact(name, number) {
   // const contact = {
