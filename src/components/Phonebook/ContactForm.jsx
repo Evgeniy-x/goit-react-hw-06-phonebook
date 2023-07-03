@@ -5,9 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from '../../redux/contactsSlice';
 
 const ContactForm = () => {
-  // const [name, setName] = useState('');
-  // const [number, setNumber] = useState('');
-
   const contactsStore = useSelector(state => state.contacts);
   const dispatch = useDispatch();
 

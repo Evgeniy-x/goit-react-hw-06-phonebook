@@ -15,7 +15,7 @@ const defaultState = [
 //   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 // ];
 
-export const changeContacts = createSlice({
+export const contactsSlice = createSlice({
   name: 'contacts',
   initialState: defaultState,
   reducers: {
@@ -39,4 +39,4 @@ export const changeContacts = createSlice({
   },
 });
 
-export const { addContact, deleteContact } = changeContacts.actions;
+export const { addContact, deleteContact } = contactsSlice.actions;
